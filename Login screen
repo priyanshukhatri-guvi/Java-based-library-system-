@@ -1,0 +1,60 @@
+// src/ui/LoginScreen.java
+package src.ui;
+
+import src.database.UserDAO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class LoginScreen extends JFrame {
+    private JTextField usernameField;
+    private JPasswordField passwordField;
+    private JButton loginButton;
+
+    public LoginScreen() {
+        setTitle("Library System - Login");
+        setSize(350, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null); // Center screen
+        setLayout(new GridLayout(4, 1));
+
+        // UI Components
+        usernameField = new JTextField();
+        passwordField = new JPasswordField();
+        loginButton = new JButton("Login");
+
+        add(new JLabel("Username:"));
+        add(usernameField);
+        add(new JLabel("Password:"));
+        add(passwordField);
+        add(loginButton);
+
+        // Login Action
+        loginButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                handleLogin();
+            }
+        });
+
+        setVisible(true);
+    }
+
+    private void handleLogin() {
+        String username = usernameField.getText().trim();
+        String password = new String(passwordField.getPassword());
+
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter username and password.");
+            return;
+        }
+
+        String role = UserDAO.authenticateUser(username, password);
+        if (role != null) {
+            JOptionPane.showMessageDialog(this, "Login successful as " + role);
+            this.dispose(); // close login screen
+            new Dashboard(username, role); // open dashboard
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid username or password!");
+        }
+    }
+}
