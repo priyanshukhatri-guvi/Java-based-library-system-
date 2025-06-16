@@ -1,0 +1,34 @@
+-- database.sql
+
+-- Create database
+CREATE DATABASE IF NOT EXISTS librarydb;
+USE librarydb;
+
+-- Create users table
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
+    role VARCHAR(20) NOT NULL
+);
+
+-- Insert dummy users
+INSERT INTO users (username, password, role) VALUES 
+('admin', 'admin123', 'admin'),
+('student1', 'student123', 'student');
+
+-- Create books table
+CREATE TABLE IF NOT EXISTS books (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    author VARCHAR(100) NOT NULL,
+    is_available BOOLEAN DEFAULT TRUE
+);
+
+-- Insert dummy books
+INSERT INTO books (title, author, is_available) VALUES 
+('Introduction to Java', 'James Gosling', TRUE),
+('Database Systems', 'C.J. Date', TRUE),
+('Clean Code', 'Robert C. Martin', TRUE),
+('Design Patterns', 'Erich Gamma', TRUE),
+('Operating Systems', 'Andrew S. Tanenbaum', TRUE);
