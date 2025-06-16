@@ -1,0 +1,66 @@
+// src/ui/Dashboard.java
+package src.ui;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class Dashboard extends JFrame {
+    private String username;
+    private String role;
+
+    public Dashboard(String username, String role) {
+        this.username = username;
+        this.role = role;
+
+        setTitle("Library Dashboard - " + role);
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new GridLayout(0, 1));
+
+        JLabel welcomeLabel = new JLabel("Welcome, " + username + " (" + role + ")", JLabel.CENTER);
+        add(welcomeLabel);
+
+        // Show features based on role
+        if (role.equalsIgnoreCase("admin")) {
+            addButton("Add New Book", () -> {
+                // Feature to be implemented
+                JOptionPane.showMessageDialog(this, "Add Book feature coming soon!");
+            });
+
+            addButton("View All Books", () -> {
+                // Feature to be implemented
+                JOptionPane.showMessageDialog(this, "View Books feature coming soon!");
+            });
+
+            addButton("Manage Users", () -> {
+                // Feature to be implemented
+                JOptionPane.showMessageDialog(this, "Manage Users coming soon!");
+            });
+        } else if (role.equalsIgnoreCase("student")) {
+            addButton("Search Books", () -> {
+                // Feature to be implemented
+                JOptionPane.showMessageDialog(this, "Search feature coming soon!");
+            });
+
+            addButton("My Borrowed Books", () -> {
+                // Feature to be implemented
+                JOptionPane.showMessageDialog(this, "Borrowed Books coming soon!");
+            });
+        }
+
+        addButton("Logout", () -> {
+            this.dispose();
+            new LoginScreen();
+        });
+
+        setVisible(true);
+    }
+
+    private void addButton(String text, Runnable action) {
+        JButton button = new JButton(text);
+        button.addActionListener(e -> action.run());
+        add(button);
+    }
+}
