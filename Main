@@ -1,0 +1,11 @@
+
+package src;
+
+import src.ui.LoginScreen;
+
+public class Main {
+    public static void main(String[] args) {
+        // Launch Login UI
+        new LoginScreen();
+    }
+}
